@@ -1,0 +1,104 @@
+﻿@model KitapModel
+@{
+    ViewData["Title"] = "KitapGuncelle";
+    var counter = 0;
+}
+@section Script{
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="~/modules/ckeditor4/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        CKEDITOR.replace("editor");
+    </script>
+}
+<h1>Kitabı Güncelle</h1>
+<hr />
+
+<form asp-controller="Admin" asp-action="EditKitap" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+
+        <div class="col-md-8">
+
+            <input type="hidden" name="KitapId" value="@Model.KitapId" />
+            <div class="form-group row">
+                <label asp-for="KitapAdi" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="KitapAdi" value="@Model.KitapAdi" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Yayinyili" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="Yayinyili" value="@Model.Yayinyili" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StokAdedi" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="StokAdedi" value="@Model.StokAdedi" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Fiyati" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="Fiyati" value="@Model.Fiyati" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ImageUrl" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+                    <img src="~/img/@Model.ImageUrl" width="80" />
+                    <input type="file" name="file" value="" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Aciklama" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <textarea id="editor" asp-for="Aciklama" value="@Model.Aciklama" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-10 offset-md-2 text-center">
+                    <button type="submit" class="btn btn-primary">Kitabı Kaydet</button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-4">
+
+
+            @foreach (var item in (List<Kategori>)ViewBag.Kategoris)
+            {
+                var isChecked = "";
+
+                if (Model.SelectedKategoris.Any(i => i.KategoriId == item.KategoriId))
+                {
+                    isChecked = "checked";
+                    <input type="hidden" name="SelectedKategoris[@counter].KategoriId" value="@item.KategoriId" />
+                    <input type="hidden" name="SelectedKategoris[@counter].KategoriAdi" value="@item.KategoriAdi" />
+                    counter++;
+
+
+                }
+                else
+                {
+                    isChecked = "";
+                }
+
+                <div class="custom-control custom-checkbox">
+
+                    <input type="checkbox" class="custom-control-input"
+                           name="KategoriIds"
+                           value="@item.KategoriId"
+                           id="kategori@(item.KategoriId)"
+                           @isChecked>
+                    <label for="kategori@(item.KategoriId)" class="custom-control-label">@item.KategoriAdi</label>
+                </div>
+            }
+        </div>
+    </div>
+</form>

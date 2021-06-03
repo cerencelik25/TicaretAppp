@@ -1,0 +1,29 @@
+﻿@model Kitap
+<div class="col-md-3 ml-3">
+    <div class="card">
+        <img src="~/img/@Model.ImageUrl" alt="@Model.KitapAdi" />
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="#">@Model.KitapAdi</a>
+            </h4>
+            <small class="text-muted">
+                <i class="fas fa-lira-sign"></i>  @Model.Fiyati
+            </small>
+        </div>
+        <div class="card-footer text-center">
+            <a asp-controller="Kitap" asp-action="Details" asp-route-id="@Model.KitapId" class="btn btn-outline-primary btn-sm">Detay</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="Kart" asp-action="SepeteEkle" method="post" style="display:inline;">
+                    <input type="hidden" name="kitapId" value="@Model.KitapId" />
+                    <input type="hidden" name="adet" value="1" />
+                    <button t type="submit" class="btn btn-outline-primary btn-sm ml-3">
+                        Sepete Ekle
+                    </button>
+                   
+                </form>
+            }
+
+        </div>
+    </div>
+</div>

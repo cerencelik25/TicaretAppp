@@ -1,0 +1,41 @@
+﻿@model KitapDetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <partial name="_slider" />
+    <div class="col-md-3">
+        <img src="/img/@Model.Kitap.ImageUrl" alt="@Model.Kitap.KitapAdi" class="img-fluid" />
+    </div>
+    <div class="col-md-9">
+        <h1 class="mb-3">@Model.Kitap.KitapAdi</h1>
+        <hr />
+        @foreach (var kategori in Model.Kategoris)
+        {
+            <a href="#" class="btn btn-link p-0 mb-3">@kategori.KategoriAdi</a>
+        }
+
+    <div class="mb-3">
+        <h4 class="text-primary mb-3">@Model.Kitap.Fiyati TL</h4>
+        <form asp-controller="Kart" class="form-inline" asp-action="SepeteEkle" method="post">
+            <input type="hidden" name="KitapId" value="@Model.Kitap.KitapId" />
+            <div class="input-group mb-3">
+                <input type="number" name="adet" class="form-control" value="1" min="1" step="1" style="width:100px" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-cart-plus"></i> Sepete Ekle
+                </button>
+            </div>
+        </form>
+       
+    </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p class="p-3">
+            @Html.Raw(Model.Kitap.Aciklama)
+        </p>
+    </div>
+</div>
+

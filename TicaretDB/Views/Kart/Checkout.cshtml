@@ -1,0 +1,117 @@
+﻿@model SiparisModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1 style="color:darkblue;">Teslimat Bilgileri</h1>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <h4 class="mb-3" style="color:crimson">Sipariş Detayları</h4>
+        <form action="/checkout" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.Ad"></label>
+                    <input asp-for="@Model.Ad" value="" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.Soyad"></label>
+                    <input asp-for="@Model.Soyad"  value="" class="form-control" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Adres"></label>
+                <textarea asp-for="@Model.Adres" class="form-control"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.Sehir"></label>
+                    <input asp-for="@Model.Sehir" value="" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.Telefon"></label>
+                    <input asp-for="@Model.Telefon" value="" class="form-control" />
+                </div>
+
+            </div>
+            <hr class="mb-4" />
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="kaydetadres" />
+                <label class="custom-control-label" for="">Adres bilginizi kaydedelim mi?</label>
+            </div>
+            <hr class="mb-4" />
+            <div class="d-block my-3">
+                <div class="custom-control custom-radio">
+                    <input id="kart" type="radio" name="odemeyontem" class="custom-control-input" checked="" value="" />
+                    <label class="custom-control-label" for="kart">Kredi Kartı</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input id="eft" type="radio" name="odemeyontem" class="custom-control-input" required="" value="" />
+                    <label class="custom-control-label" for="eft">Eft</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input id="kapidaodeme" type="radio" name="odemeyontem" class="custom-control-input" required="" value="" />
+                    <label class="custom-control-label" for="kapidaodeme">Kapıda Odeme</label>
+                </div>
+            </div>
+            <h3 class="mb-3" style="color:orangered">Odeme Alanı</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.KartUzeriAd"></label>
+                    <input asp-for="@Model.KartUzeriAd" value="" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.KartNumarasi"></label>
+                    <input asp-for="@Model.KartNumarasi" value="" class="form-control" />
+                </div>
+
+            </div>
+            <hr class="mb-4" />
+            <h4>Son Kullanma Tarihi</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.KartAy"></label>
+                    <input asp-for="@Model.KartAy" value="" class="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.KartYil"></label>
+                    <input asp-for="@Model.KartYil" value="" class="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label asp-for="@Model.KartCvv"></label>
+                    <input asp-for="@Model.KartCvv" value="" class="form-control" />
+                </div>
+            </div>
+            <hr class="mb-4" />
+            <button type="submit" class="btn btn-primary btn-lg">Siparişi Tamamla</button>
+
+        </form>
+    
+    </div>
+    <div class="col-md-4 mb-4 card">
+
+        <h1 style="color:orange;">Sipariş Özeti</h1>
+        <ul class="list-group mb-3">
+            @foreach (var item in Model.KartModel.KartItems)
+            {
+            <li class="list-group-item">
+                
+                    <label class="my-0">@item.Ad
+                    <small>x @item.Adet</small></label>
+                    <label class="text-muted" style="float:right">@item.Fiyat TL</label>
+                               
+             </li>
+            }
+            <li class="list-group-item">
+                <div>
+                    <label>@Model.KartModel.ToplamAdet() adet ürün toplamı</label>
+                    <label class="text-left" style="float:right">@Model.KartModel.TotalPrice() TL</label>
+                </div>
+            </li>
+        </ul>
+        
+
+    </div>
+</div>

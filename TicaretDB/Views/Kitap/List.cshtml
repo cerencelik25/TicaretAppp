@@ -1,0 +1,20 @@
+﻿@model KitapListModel
+
+
+<div class="row">
+    <div class="col-md-3">
+        @await Component.InvokeAsync("KategoriList")
+
+    </div>
+    <div class="col-md-9">
+      
+        <div class="row">
+
+            @foreach (var kitap in Model.Kitaps)
+            {
+                <partial name="_kitap" for="@kitap" />
+            }
+        </div>
+        <div page-model="@Model.PageInfo"></div>
+    </div>
+</div>

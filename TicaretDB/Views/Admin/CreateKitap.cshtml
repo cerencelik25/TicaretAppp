@@ -1,0 +1,76 @@
+﻿@model KitapModel
+@{
+    ViewData["Title"] = "KitapEkle";
+}
+@section Script{
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+    <script src="~/modules/ckeditor4/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        CKEDITOR.replace("editor");
+    </script>
+}
+<h1>Kitap Ekle</h1>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="text-danger">@ViewBag.ErrorMessage</div>
+        }
+        <form asp-controller="Admin" asp-action="CreateKitap" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="KitapAdi" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="KitapAdi" value="@Model.KitapAdi" class="form-control" />
+                    <span asp-validation-for="KitapAdi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Yayinyili" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="Yayinyili" value="@Model.Yayinyili" class="form-control" />
+                    <span asp-validation-for="Yayinyili" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StokAdedi" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="StokAdedi" value="@Model.StokAdedi" class="form-control" />
+                    <span asp-validation-for="StokAdedi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Fiyati" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="Fiyati" value="@Model.Fiyati" class="form-control" />
+                    <span asp-validation-for="Fiyati" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ImageUrl" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <input asp-for="ImageUrl" value="@Model.ImageUrl" class="form-control" />
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Aciklama" class="col-md-2 col-form-label" placeholder="Kitap adini giriniz..."></label>
+                <div class="col-md-10">
+                    <textarea id="editor" asp-for="Aciklama" class="form-control">@Model.Aciklama</textarea>
+                    <span asp-validation-for="Aciklama" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-10 offset-md-2 text-center">
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

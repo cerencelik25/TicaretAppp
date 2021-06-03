@@ -1,0 +1,95 @@
+﻿@model KartModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Sepetim</h1>
+
+<div class="row mt-5">
+    <div class="col-md-8">
+        <h2>Ürünler</h2>
+
+        @if (Model.KartItems.Count>0)
+        {
+
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>ÜRÜN ADİ</th>
+                    <th>FİYAT</th>
+                    <th>ADET</th>
+                    <th>TOPLAM</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.KartItems)
+                {
+                    <tr>
+                        <th>
+                            <img src="~/img/@item.ImageUrl" alt="" width="80" />
+                        </th>
+                        <th>@item.Ad</th>
+                        <th>@item.Fiyat.ToString("c")</th>
+                        <th>@item.Adet</th>
+                        <th>@((item.Adet * item.Fiyat).ToString("c"))</th>
+                        <th>
+                            <form asp-controller="Kart" asp-action="SepettenSil" method="post">
+                               <input type="hidden" name="kitapId" value="@item.KitapId"/> 
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times fa-fw"></i>
+                                </button>
+                            </form>
+                            
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Sepette hiç ürün yok.
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+
+        @if (Model.KartItems.Count > 0)
+        {
+            <div class="text-left">
+                <h2>Sepet Özeti</h2>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Sepet Toplamı</th>
+                            <td>@Model.TotalPrice().ToString("c")</td>
+                        </tr>
+                        <tr>
+                            <th>Kargo Ücreti</th>
+                            <td>Bedava</td>
+                        </tr>
+                        <tr>
+                            <th>Siparis Toplamı</th>
+                            <td>@Model.TotalPrice().ToString("c")</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a href="/" class="btn btn-primary">
+                        <i class="fa fa-arrw-circle-left fa-fw"></i> Alışverişe devam et
+                    </a>
+                    <a href="/checkout" class="btn btn-primary">
+                        <i class="fa fa-arrw-circle-right fa-fw"></i>Odeme
+                    </a>
+                </div>
+            </div>
+
+        }
+            </div>
+        
+</div>
+

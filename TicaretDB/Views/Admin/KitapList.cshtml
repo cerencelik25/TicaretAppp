@@ -1,0 +1,62 @@
+﻿@model KitapListModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Yönetici Kitaplar</h1>
+<hr />
+@if (Model.Kitaps.Count()>0)
+	{
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td style="width:10px">Kitap Id</td>
+            <td style="width:100px">Resim</td>
+            <td style="width:100px">Kitap Adi</td>
+            <td style="width:20px">Fiyatı</td>
+            <td style="width:10px">Yayınyılı</td>
+            <td style="width:10px">Stok Adedi</td>
+            <td style="width:150px">Açıklama</td>
+            <td style="width:100px">İşlemler</td>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Kitaps)
+        {
+            <tr>
+                <td>@item.KitapId</td>
+                <td>
+                    <img src="~/img/@item.ImageUrl" width="80" />
+                </td>
+                <td>@item.KitapAdi</td>
+                <td>@item.Fiyati</td>
+                <td>@item.Yayinyili</td>
+                <td>@item.StokAdedi</td>
+                <td>@Html.Raw(item.Aciklama)</td>
+                <td>
+                    <a class="btn btn-primary bt-sm mr-2" href="/admin/kitaps/@item.KitapId">Düzenle</a>
+
+                    <form action="/admin/deletekitap" method="post" style="display:inline;">
+                        <input type="hidden" name="kitapId" value="@item.KitapId" />
+                        <button class="btn btn-danger bt-sm " type="submit" >Sil</button>
+                    </form>
+
+                    
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+    <tr>
+    </tr>
+</table>
+	}
+            else
+            {
+                <div class="alert alert-warning">
+                    <h4>Urun Yok</h4>
+                </div>
+            }
+

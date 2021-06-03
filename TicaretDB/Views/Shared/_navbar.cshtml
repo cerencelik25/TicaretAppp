@@ -1,0 +1,57 @@
+﻿<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">KİTAP</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active new-item"><a href="/">Home</a></li>
+            @*<li class="new-item"><a href="#">Yazarlar </a></li>*@
+            
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="new-item"><a asp-controller="Kart" asp-action="Index">Kart</a></li>
+                <li class="new-item"><a asp-controller="Kart" asp-action="GetSiparis">Siparişler</a></li>
+                if (User.IsInRole("admin"))
+                {
+                    @*<li class="new-item"><a href="#">Yayinevi</a></li>*@
+                    <li class="new-item"><a asp-controller="Admin" asp-action="CreateKategori">Kategori Ekle</a></li>
+                    <li class="new-item"><a asp-controller="Admin" asp-action="KategoriList">Kategori Güncelle</a></li>
+                    <li class="new-item"><a asp-controller="Admin" asp-action="CreateKitap">Kitap Ekle</a></li>
+                    <li class="new-item"><a asp-controller="Admin" asp-action="KitapList">Kitap Güncelle</a></li>
+                    @*<li class="new-item"><a href="#">Yazar Ekle</a></li>
+                <li class="new-item"><a href="#">Yayinevi Ekle</a></li>*@
+                }
+
+
+            }
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-controller="Account" asp-action="Manage"><span class="glyphicon glyphicon-log-user"></span>  @User.Identity.Name</a></li>
+                <li><a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-log-out"></span>Çıkış</a></li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span>Giriş</a></li>
+
+                <li><a asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            }
+
+
+        </ul>
+    </div>
+  
+    <div class="card text-center">
+        <div class="card-body text-center">
+            <form action="/search" class="form-inline text-center">
+                <div class="form-group">
+                    <input name="q" type="text" class="form-control mr-2 text-center" placeholder="Kelimeyi giriniz" />
+
+                </div>
+
+                <button type="submit" class="btn btn-outline-light mr-0 text-center">ARA</button>
+            </form>
+        </div>
+    </div>
+</nav>

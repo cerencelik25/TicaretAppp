@@ -1,0 +1,11 @@
+﻿@model KategoriListViewModel
+
+<div class="list-group">
+    @foreach (var item in Model.Kategoris)
+    {
+        <a asp-controller="Kitap" asp-action="List" asp-route-kategori="@item.KategoriAdi.ToLower()"
+           class="list-group-item list-group-item-action @(Model.SelectedKategori==item.KategoriAdi.ToLower()?"active":"")">
+    @item.KategoriAdi</a>
+    }
+    
+</div>
