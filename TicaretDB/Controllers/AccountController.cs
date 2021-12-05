@@ -19,13 +19,13 @@ namespace TicaretDB.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private IEmailSender _emailSender;
-        private IKartService _kartService;
+        private IKartService _kartService;     
 
         public AccountController(IKartService kartService,UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             _kartService = kartService;
             _userManager = userManager;
-            _signInManager = signInManager;
+            _signInManager = signInManager;   
             _emailSender = emailSender;
         }
 
